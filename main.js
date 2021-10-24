@@ -69,4 +69,14 @@ const stlURL = {
 	darwin: "https://raw.githubusercontent.com/meow55555/stl/main/dist/stl-macOS-amd64",
 }
 
+var con= document.getElementById("connect");
+con.onclick = function(){
+
+}
+
+var reg= document.getElementById("register");
+reg.onclick = function(){
+	
+}
+
 downloadSTL(stlURL[process.platform])
