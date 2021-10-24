@@ -1,0 +1,25 @@
+{
+	"name": "vpt",
+	"version": "1.0.0",
+	"description": "Virtual Private Tunnel",
+	"main": "main.js",
+	"scripts": {
+		"start": "electron .",
+		"build": "electron-builder -wl"
+	},
+	"author": "meow55555 <meow55555@github.com>",
+	"homepage": "https://github.com/simba-fs",
+	"license": "MIT",
+	"devDependencies": {
+		"electron": "^15.3.0",
+		"electron-builder": "^22.13.1"
+	},
+	"build": {
+		"appId": "vps",
+		"linux": {
+			"target": "deb",
+			"icon": "build/icons",
+			"category": "Network"
+		}
+	}
+}
