@@ -39,15 +39,19 @@ app.whenReady().then(() => {
 		downloadSTL(stlURL[process.platform])
 			.then(() => send('alert', 'download conplete'))
 	})
+
+	ipcMain.on('stl', (e, cmd) => {
+		console.log('stl:', cmd)
+		exec(`stl ${cmd}`)
+			.then((value) => send('stl-stdout', value.stdout))
+			.catch((value) => send('stl-stdout', value.stderr))
+	})
+
 });
 
 app.on('window-all-closed', () => {
 	if (process.platform !== 'darwin') app.quit()
 });
-
-ipcMain.on('stl', (e, cmd) => {
-	console.log('stl:', cmd)
-})
 
 function downloadSTL(url){
 	return new Promise((resl, rej) => {
