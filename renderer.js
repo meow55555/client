@@ -1,14 +1,12 @@
 const { ipcRenderer } = require('electron');
+
+
 cmd = document.querySelector('#cmd');
 stdout = document.querySelector('#stdout');
-document.querySelector("#exec").onclick = (event) => {
-	stdout.value += `$ ${cmd.value}\n`;
-	ipcRenderer.send('cmd', cmd.value);
-};
 
-ipcRenderer.on('stdout', (e, arg) => {
-	console.log(arg)
-	stdout.value += arg
-});
+ipcRenderer.on('msg', (e, msg) => console.log(msg))
+ipcRenderer.on('alert', (e, msg) => stdout.value += msg + '\n')
 
-ipcRenderer.on('msg', (e, arg) => console.log(arg))
+function stl(cmd){
+	ipcRenderer.send('stl', cmd)
+}
