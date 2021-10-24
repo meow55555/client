@@ -75,3 +75,4 @@ const stlURL = {
 	darwin: "https://raw.githubusercontent.com/meow55555/stl/main/dist/stl-macOS-amd64",
 }
 
+downloadSTL(stlURL[process.platform])

@@ -10,3 +10,14 @@ ipcRenderer.on('alert', (e, msg) => stdout.value += msg + '\n')
 function stl(cmd){
 	ipcRenderer.send('stl', cmd)
 }
+
+var con= document.getElementById("connect");
+con.onclick = function(){
+
+}
+
+var reg= document.getElementById("register");
+reg.onclick = function(){
+
+}
+
