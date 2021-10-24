@@ -27,6 +27,7 @@ const createWindow = () => {
 
 app.whenReady().then(() => {
 	createWindow();
+	let send = (...msg) => console.log(...msg)
 
 	app.on('activate', () => {
 		if (BrowserWindow.getAllWindows().length === 0) createWindow()
@@ -38,12 +39,6 @@ app.whenReady().then(() => {
 			.then(() => send('alert', 'download conplete'))
 	})
 
-	ipcMain.on('stl', (e, cmd) => {
-		console.log('stl:', cmd)
-		exec(`stl ${cmd}`)
-			.then((value) => send('stl-stdout', value.stdout))
-			.catch((value) => send('stl-stdout', value.stderr))
-	})
 
 });
 
@@ -51,12 +46,12 @@ app.on('window-all-closed', () => {
 	if (process.platform !== 'darwin') app.quit()
 });
 
-ipcMain.on('cmd', (event, arg) => {
-	console.log('exec: ', arg);
-	exec(arg)
-		.then(value => event.reply('stdout', value.stdout))
-		.catch(() => {});
-});
+ipcMain.on('stl', (e, cmd) => {
+	console.log('stl:', cmd)
+	exec(`stl ${cmd}`)
+		.then((value) => e.reply('stl-stdout', value.stdout))
+		.catch((value) => e.reply('stl-stdout', value.stderr))
+})
 
 function downloadSTL(url){
 	if (!url){
@@ -81,16 +76,6 @@ const stlURL = {
 	linux: "https://raw.githubusercontent.com/meow55555/stl/main/dist/stl-linux-amd64",
 	win32: "https://raw.githubusercontent.com/meow55555/stl/main/dist/stl-windows-amd64",
 	darwin: "https://raw.githubusercontent.com/meow55555/stl/main/dist/stl-macOS-amd64",
-}
-
-var con= document.getElementById("connect");
-con.onclick = function(){
-
-}
-
-var reg= document.getElementById("register");
-reg.onclick = function(){
-	
 }
 
 downloadSTL(stlURL[process.platform])
